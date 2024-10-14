@@ -7,7 +7,7 @@ public class RustString: RustStringRefMut {
 
     deinit {
         if isOwned {
-            __swift_bridge__$RustString$_free(ptr)
+            __swift_bridge__$RustString$_free(self.ptr)
         }
     }
 }
@@ -36,15 +36,15 @@ public class RustStringRef {
 }
 extension RustStringRef {
     public func len() -> UInt {
-        __swift_bridge__$RustString$len(ptr)
+        __swift_bridge__$RustString$len(self.ptr)
     }
 
     public func as_str() -> RustStr {
-        __swift_bridge__$RustString$as_str(ptr)
+        __swift_bridge__$RustString$as_str(self.ptr)
     }
 
     public func trim() -> RustStr {
-        __swift_bridge__$RustString$trim(ptr)
+        __swift_bridge__$RustString$trim(self.ptr)
     }
 }
 /// exercised in SwiftRustIntegrationTestRunner/SwiftRustIntegrationTestRunnerTests/ResultTests.swift:

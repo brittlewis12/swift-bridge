@@ -11,31 +11,31 @@ public class RustVec<T: Vectorizable> {
         isOwned = true
     }
 
-    public func push (value: T) {
-        T.vecOfSelfPush(vecPtr: ptr, value: value)
+    public func push(value: T) {
+        T.vecOfSelfPush(vecPtr: self.ptr, value: value)
     }
 
-    public func pop () -> Optional<T> {
-        T.vecOfSelfPop(vecPtr: ptr)
+    public func pop() -> Optional<T> {
+        T.vecOfSelfPop(vecPtr: self.ptr)
     }
 
     public func get(index: UInt) -> Optional<T.SelfRef> {
-         T.vecOfSelfGet(vecPtr: ptr, index: index)
+         T.vecOfSelfGet(vecPtr: self.ptr, index: index)
     }
 
     public func as_ptr() -> UnsafePointer<T.SelfRef> {
-        UnsafePointer<T.SelfRef>(OpaquePointer(T.vecOfSelfAsPtr(vecPtr: ptr)))
+        UnsafePointer<T.SelfRef>(OpaquePointer(T.vecOfSelfAsPtr(vecPtr: self.ptr)))
     }
 
     /// Rust returns a UInt, but we cast to an Int because many Swift APIs such as
     /// `ForEach(0..rustVec.len())` expect Int.
     public func len() -> Int {
-        Int(T.vecOfSelfLen(vecPtr: ptr))
+        Int(T.vecOfSelfLen(vecPtr: self.ptr))
     }
 
     deinit {
         if isOwned {
-            T.vecOfSelfFree(vecPtr: ptr)
+            T.vecOfSelfFree(vecPtr: self.ptr)
         }
     }
 }
@@ -84,7 +84,7 @@ extension RustVec: Collection {
 extension RustVec: RandomAccessCollection {}
 
 extension UnsafeBufferPointer {
-    func toFfiSlice () -> __private__FfiSlice {
+    func toFfiSlice() -> __private__FfiSlice {
         __private__FfiSlice(start: UnsafeMutablePointer(mutating: self.baseAddress), len: UInt(self.count))
     }
 }

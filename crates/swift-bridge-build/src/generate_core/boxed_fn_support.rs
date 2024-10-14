@@ -13,7 +13,7 @@ public class __private__RustFnOnceCallbackNoArgsNoRet {
 
     deinit {
         if !called {
-            __swift_bridge__$free_boxed_fn_once_no_args_no_return(ptr)
+            __swift_bridge__$free_boxed_fn_once_no_args_no_return(self.ptr)
         }
     }
 
@@ -22,7 +22,7 @@ public class __private__RustFnOnceCallbackNoArgsNoRet {
             fatalError("Cannot call a Rust FnOnce function twice")
         }
         called = true
-        return __swift_bridge__$call_boxed_fn_once_no_args_no_return(ptr)
+        return __swift_bridge__$call_boxed_fn_once_no_args_no_return(self.ptr)
     }
 }
 "#;
